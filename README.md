@@ -138,4 +138,12 @@ Screenshot
         +----------+--------------+------+-----+---------+----------------+
         4 rows in set (0.00 sec)
 
+# 실행방법
 
+1. Express-Mysql-Login-Practice 다운로드
+
+2. Express-Mysql-Login-Practice 폴더로 이동
+
+3. npm install
+
+4. node login.js

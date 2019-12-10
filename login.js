@@ -3,7 +3,9 @@ var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var path = require('path');
+var app = express();
 
+//mysql db setting
 var connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
@@ -11,7 +13,10 @@ var connection = mysql.createConnection({
 	database : 'nodelogin'
 });
 
-var app = express();
+// ejs view template
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
 app.use(session({
 	secret: 'secret',
 	resave: true,
@@ -20,21 +25,25 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
-app.get('/', function(request, response) {
-	response.sendFile(path.join(__dirname + '/login.html'));
+//login get
+app.get('/', (req, res) => {
+	res.render('login', {
+		title: "Login Page", 
+		activate: "login"
+	  });
 });
 
+//login post
 app.post('/auth', function(request, response) {
 	var username = request.body.user_name;
 	var password = request.body.pass;
 	if (username && password) {
 		connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-			console.log(results);
 			var results = [username, password]
 			if (results.length > 0) {
 				request.session.loggedin = true;
 				request.session.username = username;
-				response.redirect('/home');
+				response.redirect('/post');
 			} else {
 				response.send('Incorrect Username and/or Password!');
 			}			
@@ -46,13 +55,14 @@ app.post('/auth', function(request, response) {
 	}
 });
 
-app.get('/home', function(request, response) {
-	if (request.session.loggedin) {
-		response.send('Welcome back, ' + request.session.username + '!');
-	} else {
-		response.send('Please login to view this page!');
-	}
-	response.end();
+//post get
+app.get('/post', (req, res) => {
+	res.render('post', {
+		title: "Post Page", 
+		activate: "post",
+		Username: req.session.username
+	});
 });
+
 
 app.listen(3000);

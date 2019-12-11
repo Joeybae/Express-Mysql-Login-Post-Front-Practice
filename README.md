@@ -1,8 +1,8 @@
-# Express-Mysql-Login-Practice
+# Express-Mysql-Login-Post-Front-Practice
 
 참고 : https://codeshack.io/basic-login-system-nodejs-express-mysql/
 
-Nodejs의 Express를 활용하여 mysql과 연동된 로그인과 게시글 작성하는 방법입니다.
+Nodejs의 Express를 활용하여 mysql과 연동된 로그인과 게시글 작성할 수 있도록 Front를 구현했습니다.
 
 Screenshot
 -------------------------------
@@ -163,10 +163,10 @@ Screenshot
 ----------------------------------------
 # 실행방법
 
-1. Express-Mysql-Login-Practice 다운로드
+1. Download
 
-2. Express-Mysql-Login-Practice 폴더로 이동
+2. cd Express-Mysql-Login-Post-Front-Practice-master
 
 3. npm install
 
-4. node login.js
+4. npm start

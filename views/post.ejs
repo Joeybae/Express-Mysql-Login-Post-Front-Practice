@@ -49,10 +49,11 @@
 			<% if(!Username) {%>
 				<p>Login First</p>
 			<% } else { %>
-			<p>Hello <%= Username %></p>
-			<form action="auth" method="POST">
-				<input type="text" name="title" placeholder="Title" required>
-				<input type="textarea" name="content" placeholder="Content" required>
+			<p>Hello </p>
+			<form action="make" method="POST">
+				Username <input type="text" name="user_name" value="<%= Username %>" required>
+				Title <input type="text" name="title" required>
+				<input type="textarea" name="contents" placeholder="Content" required>
 				<input type="submit">
 			</form>
 			<% } %>

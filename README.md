@@ -2,13 +2,15 @@
 
 참고 : https://codeshack.io/basic-login-system-nodejs-express-mysql/
 
+Nodejs의 Express를 활용하여 mysql과 연동된 로그인과 게시글 작성하는 방법입니다.
+
 Screenshot
 -------------------------------
 
-<img width="534" alt="스크린샷 2019-12-06 오후 4 55 46" src="https://user-images.githubusercontent.com/45925992/70306290-d432ce00-1849-11ea-8e40-9834d91d006b.png">
-
-
-------------------------------
+<div style="text-align: center;">
+<img width="400" height="300" alt="login page" src="https://user-images.githubusercontent.com/45925992/70306290-d432ce00-1849-11ea-8e40-9834d91d006b.png">
+<img width="400" height="300" alt="post page" src="https://user-images.githubusercontent.com/45925992/70504337-efaf1900-1b68-11ea-8c79-5b640be279b8.png">
+</div>
 
 # mysql 설치 및 실행방법
 
@@ -138,6 +140,27 @@ Screenshot
         +----------+--------------+------+-----+---------+----------------+
         4 rows in set (0.00 sec)
 
+  - 게시판 속성 추가 (title, contents)
+  
+        # alter table accounts add title varchar(50);
+        # alter table accounts add contents text;
+  
+  - 결과
+  
+        mysql> describe accounts;
+        +----------+--------------+------+-----+---------+----------------+
+        | Field    | Type         | Null | Key | Default | Extra          |
+        +----------+--------------+------+-----+---------+----------------+
+        | id       | int(11)      | NO   | PRI | NULL    | auto_increment |
+        | username | varchar(50)  | NO   |     | NULL    |                |
+        | password | varchar(255) | NO   |     | NULL    |                |
+        | email    | varchar(100) | NO   |     | NULL    |                |
+        | title    | varchar(50)  | YES  |     | NULL    |                |
+        | contents | text         | YES  |     | NULL    |                |
+        +----------+--------------+------+-----+---------+----------------+
+        6 rows in set (0.00 sec)
+        
+----------------------------------------
 # 실행방법
 
 1. Express-Mysql-Login-Practice 다운로드

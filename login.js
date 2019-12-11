@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 	  });
 });
 
-//login post
+//login mysql
 app.post('/auth', function(request, response) {
 	var username = request.body.user_name;
 	var password = request.body.pass;
@@ -64,5 +64,33 @@ app.get('/post', (req, res) => {
 	});
 });
 
+//post mysql
+app.post('/make', function(request, response) {
+	var username = request.body.user_name;
+	var title = request.body.title;
+	var contents = request.body.contents;
+	if (username && title && contents) {
+		connection.query('UPDATE accounts SET title = ?, contents = ? WHERE username = ?', [title, contents, username], function(err, results, fields) {
+			var results = [title, contents, username]
+			if (results.length > 0) {
+				request.session.loggedin = true;
+				request.session.title = title;
+				request.session.contents = contents;
+				request.session.username = username;
+				response.redirect('/post');
+			} else {
+				response.send('Incorrect Username and/or Password!');
+			}			
+			response.end();
+		});
+	} else {
+		response.send('Please enter Username and Password!');
+		response.end();
+	}
+	// connection.query('UPDATE accounts SET title = ?, contents = ? WHERE username = ?', [title, contents, username], function(err, results, fields) {
+	// 	response.end();
+	// 	response.redirect('/post');
+	// });
+});
 
 app.listen(3000);
